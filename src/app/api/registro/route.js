@@ -43,7 +43,7 @@ export async function POST(request) {
     );
   }
 
-  // Validar que las contraseñas coincidan (comentado por si necesitas activarlo)
+  // Validar que las contraseñas coincidan
    if (Contraseña !== Confirmar_contraseña) {
     return NextResponse.json(
       { error: "Las contraseñas no coinciden" },

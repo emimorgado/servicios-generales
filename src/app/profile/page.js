@@ -111,8 +111,8 @@ export default function Profile() {
               <span>{userData.Cedula}</span>
             </li>
             <li className="flex justify-between py-2 border-b">
-              <span className="font-medium">Teléfono:</span>
-              <span>{userData.Telefono}</span>
+              <span className="font-medium">Fecha Nacimiento:</span>
+              <span>{userData.Fecha_nacimiento}</span>
             </li>
             <li className="flex justify-between py-2 border-b">
               <span className="font-medium">Dirección:</span>
@@ -191,147 +191,161 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Modal para edición */}
       {showEditModal && (
-        <Modal title="Editar Perfil" onClose={() => setShowEditModal(false)}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              saveProfile();
-            }}
-            className="space-y-4"
-          >
-            {/* Nombres */}
-            <div>
-              <label htmlFor="Nombres" className="block text-sm font-medium text-gray-700">
-                Nombres
-              </label>
-              <input
-                type="text"
-                id="Nombres"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Nombres}
-                onChange={(e) => handleEdit("Nombres", e.target.value)}
-              />
-            </div>
-            {/* Apellidos */}
-            <div>
-              <label htmlFor="Apellidos" className="block text-sm font-medium text-gray-700">
-                Apellidos
-              </label>
-              <input
-                type="text"
-                id="Apellidos"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Apellidos}
-                onChange={(e) => handleEdit("Apellidos", e.target.value)}
-              />
-            </div>
-            {/* Teléfono */}
-            <div>
-              <label htmlFor="Telefono" className="block text-sm font-medium text-gray-700">
-                Teléfono
-              </label>
-              <input
-                type="text"
-                id="Telefono"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Telefono}
-                onChange={(e) => handleEdit("Telefono", e.target.value)}
-              />
-            </div>
-            {/* Dirección */}
-            <div>
-              <label htmlFor="Direccion" className="block text-sm font-medium text-gray-700">
-                Dirección
-              </label>
-              <input
-                type="text"
-                id="Direccion"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Direccion}
-                onChange={(e) => handleEdit("Direccion", e.target.value)}
-              />
-            </div>
-            {/* Redes Sociales */}
-            <div>
-              <label htmlFor="Instagram" className="block text-sm font-medium text-gray-700">
-                Instagram
-              </label>
-              <input
-                type="text"
-                id="Instagram"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Instagram}
-                onChange={(e) => handleEdit("Instagram", e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="Facebook" className="block text-sm font-medium text-gray-700">
-                Facebook
-              </label>
-              <input
-                type="text"
-                id="Facebook"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Facebook}
-                onChange={(e) => handleEdit("Facebook", e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="Tiktok" className="block text-sm font-medium text-gray-700">
-                TikTok
-              </label>
-              <input
-                type="text"
-                id="Tiktok"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Tiktok}
-                onChange={(e) => handleEdit("Tiktok", e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="Url" className="block text-sm font-medium text-gray-700">
-                URL del Perfil
-              </label>
-              <input
-                type="text"
-                id="Url"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Url}
-                onChange={(e) => handleEdit("Url", e.target.value)}
-              />
-            </div>
-            {/* Descripción */}
-            <div>
-              <label htmlFor="Descripcion" className="block text-sm font-medium text-gray-700">
-                Descripción
-              </label>
-              <textarea
-                id="Descripcion"
-                className="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={userData.Descripcion}
-                onChange={(e) => handleEdit("Descripcion", e.target.value)}
-              />
-            </div>
-            <div className="flex justify-between">
-              <button
-                type="button"
-                className="px-4 py-2 bg-gray-500 text-white rounded-lg"
-                onClick={() => setShowEditModal(false)}
-              >
-                Cancelar
-              </button>
-              <button
-                type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg"
-              >
-                Guardar
-              </button>
-            </div>
-          </form>
-        </Modal>
-      )}
+  <Modal title="Editar Perfil" onClose={() => setShowEditModal(false)}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        saveProfile();
+      }}
+      className="space-y-6 max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-xl"
+    >
+      {/* Usando grid para que los inputs estén en dos columnas */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        
+        {/* Nombres */}
+        <div>
+          <label htmlFor="Nombres" className="block text-sm font-medium text-gray-700">
+            Nombres
+          </label>
+          <input
+            type="text"
+            id="Nombres"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={userData.Nombres}
+            onChange={(e) => handleEdit("Nombres", e.target.value)}
+          />
+        </div>
+
+        {/* Apellidos */}
+        <div>
+          <label htmlFor="Apellidos" className="block text-sm font-medium text-gray-700">
+            Apellidos
+          </label>
+          <input
+            type="text"
+            id="Apellidos"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={userData.Apellidos}
+            onChange={(e) => handleEdit("Apellidos", e.target.value)}
+          />
+        </div>
+
+        {/* Fecha_nacimiento */}
+        <div>
+          <label htmlFor="Fecha_nacimiento" className="block text-sm font-medium text-gray-700">
+          Fecha Nacimiento
+          </label>
+          <input
+            type="text"
+            id="Fecha_nacimiento"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={userData.Fecha_nacimiento}
+            onChange={(e) => handleEdit("Fecha_nacimiento", e.target.value)}
+          />
+        </div>
+
+        {/* Dirección */}
+        <div>
+          <label htmlFor="Direccion" className="block text-sm font-medium text-gray-700">
+            Dirección
+          </label>
+          <input
+            type="text"
+            id="Direccion"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={userData.Direccion}
+            onChange={(e) => handleEdit("Direccion", e.target.value)}
+          />
+        </div>
+
+        {/* Redes Sociales */}
+        <div>
+          <label htmlFor="Instagram" className="block text-sm font-medium text-gray-700">
+            Instagram
+          </label>
+          <input
+            type="text"
+            id="Instagram"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={userData.Instagram}
+            onChange={(e) => handleEdit("Instagram", e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="Facebook" className="block text-sm font-medium text-gray-700">
+            Facebook
+          </label>
+          <input
+            type="text"
+            id="Facebook"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={userData.Facebook}
+            onChange={(e) => handleEdit("Facebook", e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="Tiktok" className="block text-sm font-medium text-gray-700">
+            TikTok
+          </label>
+          <input
+            type="text"
+            id="Tiktok"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={userData.Tiktok}
+            onChange={(e) => handleEdit("Tiktok", e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="Url" className="block text-sm font-medium text-gray-700">
+            URL del Perfil
+          </label>
+          <input
+            type="text"
+            id="Url"
+            className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            value={userData.Url}
+            onChange={(e) => handleEdit("Url", e.target.value)}
+          />
+        </div>
+      </div>
+
+      {/* Descripción */}
+      <div>
+        <label htmlFor="Descripcion" className="block text-sm font-medium text-gray-700">
+          Descripción
+        </label>
+        <textarea
+          id="Descripcion"
+          className="mt-2 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          value={userData.Descripcion}
+          onChange={(e) => handleEdit("Descripcion", e.target.value)}
+        />
+      </div>
+
+      <div className="flex justify-between items-center mt-6">
+        <button
+          type="button"
+          className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition duration-200"
+          onClick={() => setShowEditModal(false)}
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200"
+        >
+          Guardar
+        </button>
+      </div>
+    </form>
+  </Modal>
+)}
+
+
 
       {/* Modal para cambiar contraseña */}
       {showPasswordModal && (

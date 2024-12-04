@@ -3,10 +3,10 @@ import { client } from "@/lib/bd";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { correo, currentPassword, newPassword } = await request.json();
+  const { correo, contraseñaActual, nuevaContraseña } = await request.json();
 
   // Validación de campos
-  if (!correo || !currentPassword || !newPassword) {
+  if (!correo || !contraseñaActual || !nuevaContraseña) {
     return NextResponse.json(
       { error: "Faltan campos requeridos" },
       { status: 400 }
@@ -28,7 +28,7 @@ export async function POST(request) {
     }
 
     // Verificar que la contraseña actual sea correcta
-    const isMatch = await bcrypt.compare(currentPassword, user.Contraseña);
+    const isMatch = await bcrypt.compare(contraseñaActual, user.Contraseña);
 
     if (!isMatch) {
       return NextResponse.json(
@@ -38,7 +38,7 @@ export async function POST(request) {
     }
 
     // Encriptar nueva contraseña
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const hashedPassword = await bcrypt.hash(nuevaContraseña, 10);
 
     // Actualizar contraseña en la base de datos
     await client.execute(
