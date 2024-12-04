@@ -110,7 +110,6 @@ async function sendVerificationEmail(Correo, code, Nombres, Apellidos) {
 
     // Enviar el correo
     await transporter.sendMail(mailOptions);
-    console.log(`Correo enviado a ${Correo} con el código ${code}`);
 
     // Guardar el código en la base de datos
     const insertQuery = `
@@ -118,7 +117,6 @@ async function sendVerificationEmail(Correo, code, Nombres, Apellidos) {
     VALUES (?, ?, CURRENT_TIMESTAMP)
   `;
     await client.query(insertQuery, [Correo, code]);
-    console.log(`Código ${code} guardado en la base de datos para ${Correo}`);
   } catch (error) {
     console.error("Error al enviar el correo:", error);
     throw error;

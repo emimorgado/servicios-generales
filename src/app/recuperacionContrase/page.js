@@ -7,6 +7,7 @@ import {
   RiEyeOffLine,
 } from "react-icons/ri";
 import Link from "next/link";
+import Alert from "@/components/alert/alertas";
 
 export default function Contraseña() {
   const [Correo, setEmail] = useState("");
@@ -19,6 +20,12 @@ export default function Contraseña() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isPasswordChanged, setIsPasswordChanged] = useState(false);
+  const [alert, setAlert] = useState({ message: "", type: "", show: false }); //alert como un componetes funcion
+
+  const showAlert = (message, type = "success") => {
+    setAlert({ message, type, show: true });
+    setTimeout(() => setAlert({ message: "", type: "", show: false }), 3000); // Desaparece en 3 segundos
+  };
 
   const handleSubmitEmail = async (e) => {
     e.preventDefault();
@@ -34,14 +41,14 @@ export default function Contraseña() {
       if (response.ok) {
         setIsEmailSent(true);
         setVerificationError("");
-        alert("Correo enviado exitosamente", "success");
+        showAlert("Correo enviado exitosamente", "success");
       } else {
         setVerificationError("");
         alert(result.error || "Error al enviar correo", "error");
       }
     } catch (error) {
       setVerificationError("Error en la solicitud");
-      alert("Error en la solicitud", "error");
+      showAlert(result.error || "Error al enviar correo", "error");
     }
   };
 
@@ -58,10 +65,10 @@ export default function Contraseña() {
       if (response.ok) {
         setIsCodeVerified(true);
         setVerificationError("");
-        alert("Código de verificación correcto", "success");
+        showAlert("Código de verificación correcto", "success");
       } else {
         setVerificationError("");
-        alert("Código de verificación incorrecto o caducado", "error");
+        showAlert("Código de verificación incorrecto o caducado", "error");
       }
     } catch (error) {
       setVerificationError(`Error en la solicitud: ${error.message}`);
@@ -80,7 +87,6 @@ export default function Contraseña() {
 
     try {
       // Validar la contraseña con Zod
-      
 
       const response = await fetch("/api/actualizarContra", {
         method: "POST",
@@ -93,21 +99,21 @@ export default function Contraseña() {
       if (response.ok) {
         setVerificationError("");
         setIsPasswordChanged(true);
-        alert("Contraseña cambiada exitosamente", "success");
+        showAlert("Contraseña cambiada exitosamente", "success");
       } else {
         const errorData = await response.json();
         setVerificationError(
           errorData.error || "Error al cambiar la contraseña"
         );
-        alert(errorData.error || "Error al cambiar la contraseña", "error");
+        showAlert(errorData.error || "Error al cambiar la contraseña", "error");
       }
     } catch (error) {
       if (error.errors) {
         setVerificationError(error.errors[0].message);
-        alert(error.errors[0].message, "error");
+        showAlert(error.errors[0].message, "error");
       } else {
         setVerificationError(`Error en la solicitud: ${error.message}`);
-        alert("Error en la solicitud", "error");
+        showAlert("Error en la solicitud", "error");
       }
     }
   };
@@ -120,6 +126,7 @@ export default function Contraseña() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-300 via-blue-400 to blue-500">
+      {alert.show && <Alert message={alert.message} type={alert.type} />}
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
         {!isEmailSent ? (
           <>
@@ -163,7 +170,7 @@ export default function Contraseña() {
           <>
             <div className="flex items-center justify-center mb-4">
               <img
-                src="/img/logo_daaltex.png"
+                src="/img/logo.png"
                 alt="Inicio de sesión"
                 className="w-8 h-8 mr-2 mb-2"
               />
@@ -216,7 +223,7 @@ export default function Contraseña() {
           >
             <div className="flex items-center justify-center mb-4">
               <img
-                src="/img/logo_daaltex.png"
+                src="img/logo.png"
                 alt="Inicio de sesión"
                 className="w-8 h-8 mr-2 mb-2"
               />
@@ -302,7 +309,7 @@ export default function Contraseña() {
               ¡Hemos actualizado su contraseña correctamente!
             </p>
             <Link
-              href="../login"
+              href="../"
               className="text-center block text-sm text-blue-500 hover:underline"
             >
               Volver al inicio
